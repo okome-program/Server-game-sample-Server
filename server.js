@@ -17,9 +17,9 @@ wss.on("connection", (ws) => {
   ws.on("message", (msg) => {
     const data = JSON.parse(msg.data);
 
-    if (data.type === "create_room") {
+    if (data.type === "next_room") {
       ws.send(JSON.stringify({
-        type: "create_room",
+        type: "next_room",
         id: ws.id
       }));
     }
