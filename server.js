@@ -5,6 +5,10 @@ const wss = new WebSocketServer({ port: 3000 });
 const room = [];
 let nextid = 1;
 
+let id_a = null;
+let id_b = null;
+let room_bool = false;
+
 wss.on("connection", (ws) => {
 
   ws.id = nextid++;
@@ -18,10 +22,28 @@ wss.on("connection", (ws) => {
     const data = JSON.parse(msg);
 
     if (data.type === "next_room") {
+      if (id_a == null) {
+        id_a = data.id;
+
+      }else if (id_a != null) {
+        if (id_b == null) {
+          id_b = data.id;
+          room_bool = true;
+
+        }else {
+          id_a = null;
+          id_b = null;
+          room_bool = false;
+        }
+      }
       ws.send(JSON.stringify({
         type: "next_room",
-        id: data.id
+        id: id_a
       }));
+    }
+
+    if (room_bool === true && data.type === "room_data") {
+      
     }
   });
 
