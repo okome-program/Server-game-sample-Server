@@ -9,7 +9,10 @@ wss.on("connection", (ws) => {
 
   ws.id = nextid++;
   room.push(ws);
-  ws.send("あなたのID: ", ws.id);
+  ws.send(JSON.stringify({
+    type: "welcome",
+    id: ws.id
+  }));
 
   ws.on("message", (msg) => {
     room.forEach(client => {
