@@ -3,16 +3,13 @@ import { WebSocketServer } from "ws";
 const wss = new WebSocketServer({ port: 3000 });
 
 const room = [];
+let nextid = 1;
 
 wss.on("connection", (ws) => {
-  if (room.length >= 2) {
-    ws.send("サーバーが満員です");
-    ws.close();
-    return;
-  }
 
+  ws.id = nextid++;
   room.push(ws);
-  ws.send("サーバーに参加しました");
+  ws.send("あなたのID: ", ws.id);
 
   ws.on("message", (msg) => {
     room.forEach(client => {
