@@ -18,7 +18,7 @@ wss.on("connection", (ws) => {
     const data = JSON.parse(msg);
     ws.send(JSON.stringify({
       type: "state",
-      id: myid
+      id: ws.id
     }));
   });
 
