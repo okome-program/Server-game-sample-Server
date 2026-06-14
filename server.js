@@ -15,11 +15,11 @@ wss.on("connection", (ws) => {
   }));
 
   ws.on("message", (msg) => {
-    room.forEach(client => {
-      if (client !== ws && client.readyState === 1) {
-        client.send(msg);
-      }
-    });
+    const data = JSON.parse(msg);
+    ws.send(JSON.stringify({
+      type: "state",
+      id: myid
+    }));
   });
 
   ws.on("close", () => {
