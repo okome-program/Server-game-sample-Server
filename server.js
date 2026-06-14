@@ -15,11 +15,14 @@ wss.on("connection", (ws) => {
   }));
 
   ws.on("message", (msg) => {
-    const data = JSON.parse(msg);
-    ws.send(JSON.stringify({
-      type: "state",
-      id: ws.id
-    }));
+    const data = JSON.parse(msg.data);
+
+    if (data.type === "create_room") {
+      ws.send(JSON.stringify({
+        type: "create_room",
+        id: ws.id
+      }));
+    }
   });
 
   ws.on("close", () => {
