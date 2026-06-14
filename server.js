@@ -20,7 +20,7 @@ wss.on("connection", (ws) => {
     if (data.type === "next_room") {
       ws.send(JSON.stringify({
         type: "next_room",
-        id: ws.id
+        id: data.id
       }));
     }
   });
