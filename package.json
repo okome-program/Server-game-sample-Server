@@ -4,5 +4,13 @@
   "type": "module",
   "scripts": {
     "start": "node server.js"
+  },
+  "description": "",
+  "main": "server.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.21.0"
   }
 }
