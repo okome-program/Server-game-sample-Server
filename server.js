@@ -39,13 +39,9 @@ wss.on("connection", (ws) => {
           }
         }
         ws.send(JSON.stringify({
-          type: "next_room",
+          type: "koredesyo",
           id: "Python"
         }));
-    }
-
-    if (room_bool === true && data.type === "room_data") {
-      
     }
   });
 
