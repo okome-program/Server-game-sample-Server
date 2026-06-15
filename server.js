@@ -29,6 +29,11 @@ wss.on("connection", (ws) => {
           id: room_list[room_list_number][0],
           room_id: room_list_number
         }));
+        if (room_list_number < 9) {
+          room_list_number++;
+        }else {
+          room_list_number = 1;
+        }
         break;
     }
   });
