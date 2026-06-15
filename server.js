@@ -23,9 +23,11 @@ wss.on("connection", (ws) => {
     switch (data.type) {
       case "create_room":
         room_list[room_list_number] = [data.id, null];
+
         ws.send(JSON.stringify({
           type: "next_room",
-          id: room_list[1][0]
+          id: room_list[room_list_number][0],
+          room_id: room_list_number
         }));
         break;
     }
