@@ -40,7 +40,7 @@ wss.on("connection", (ws) => {
         }
         ws.send(JSON.stringify({
           type: "next_room",
-          id: id_a
+          id: "Python"
         }));
     }
 
