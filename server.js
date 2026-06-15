@@ -69,10 +69,16 @@ wss.on("connection", (ws) => {
           });
         }
         break;
+
       case "game_start":
         if (room_list[data.room_number][0] === data.id) {
-          sendToId(data.id, {
-            type: "test"
+          sendToId(room_list[data.room_number][0], {
+            type: "game_start_found",
+            pnumber: "1"
+          });
+          sendToId(room_list[data.room_number][1], {
+            type: "game_start_found",
+            pnumber: "2"
           });
         }
         break;
