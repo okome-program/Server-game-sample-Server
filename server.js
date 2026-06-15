@@ -69,6 +69,13 @@ wss.on("connection", (ws) => {
           });
         }
         break;
+      case "game_start":
+        if (room_list[data.room_number][0] === data.id) {
+          sendToId(data.id, {
+            type: "test"
+          });
+        }
+        break;
     }
   });
 
