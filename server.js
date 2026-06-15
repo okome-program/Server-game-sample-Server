@@ -8,6 +8,13 @@ let nextid = 1;
 let room_list_number = 1;
 let room_list = [];
 
+for (let i = 0; i < 2; i++) {
+  room_list[i] = [];
+  for (let j = 0; j < 10; j++) {
+    room_list[i][j] = null;
+  }
+}
+
 function sendToId(id, data) {
   const target = room.find(p => p.id === id);
   if (target) {
@@ -44,7 +51,7 @@ wss.on("connection", (ws) => {
         break;
 
       case "conect_room":
-        if (room_list[data.conect_room_number][0] == undefined) {
+        if (room_list[data.conect_room_number][0] == null) {
           sendToId(data.id, {
             type: "conect_error_room_null"
           });
