@@ -21,25 +21,27 @@ wss.on("connection", (ws) => {
   ws.on("message", (msg) => {
     const data = JSON.parse(msg);
 
-    if (data.type === "next_room") {
-      if (id_a == null) {
-        id_a = data.id;
+    switch (data.type) {
+      case "next_room":
+        if (id_a == null) {
+          id_a = data.id;
 
-      }else if (id_a != null) {
-        if (id_b == null) {
-          id_b = data.id;
-          room_bool = true;
+        }else if (id_a != null) {
+          if (id_b == null) {
+            id_b = data.id;
+            room_bool = true;
 
-        }else {
-          id_a = null;
-          id_b = null;
-          room_bool = false;
+          }else {
+            id_a = null;
+            id_b = null;
+            room_bool = false;
+        
+          }
         }
-      }
-      ws.send(JSON.stringify({
-        type: "next_room",
-        id: id_a
-      }));
+        ws.send(JSON.stringify({
+          type: "next_room",
+          id: id_a
+        }));
     }
 
     if (room_bool === true && data.type === "room_data") {
