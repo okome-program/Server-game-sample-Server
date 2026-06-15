@@ -8,6 +8,13 @@ let nextid = 1;
 let room_list_number = 1;
 let room_list = [];
 
+function sendToId(id, data) {
+  const target = room.find(p => p.id === id);
+  if (target) {
+    target.send(JSON.stringify(data));
+  }
+}
+
 wss.on("connection", (ws) => {
 
   ws.id = nextid++;
@@ -33,6 +40,22 @@ wss.on("connection", (ws) => {
           room_list_number++;
         }else {
           room_list_number = 1;
+        }
+        break;
+
+      case "conect_room":
+        if (room_list[data.conect_room_number][0] !== null && room_list[data.conect_room_number][1] === null) {
+          room_list[data.conect_room_number][1] = data.id;
+          sendToId(room_list[data.conect_room_number][0], {
+            type: "match_conect"
+          });
+          sendToId(room_list[data.conect_room_number][1], {
+            type: "conect_ok"
+          });
+        }else {
+          sendToId(data.id, {
+            type: "conect_error"
+          });
         }
         break;
     }
