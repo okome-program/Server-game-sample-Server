@@ -39,7 +39,7 @@ wss.on("connection", (ws) => {
           }
         }
         ws.send(JSON.stringify({
-          type: "koredesyo",
+          type: "next-room",
           id: "Python"
         }));
     }
