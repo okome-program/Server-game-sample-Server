@@ -5,9 +5,8 @@ const wss = new WebSocketServer({ port: 3000 });
 const room = [];
 let nextid = 1;
 
-let id_a = null;
-let id_b = null;
-let room_bool = false;
+let room_list_number = 1;
+let room_list = [];
 
 wss.on("connection", (ws) => {
 
@@ -22,26 +21,13 @@ wss.on("connection", (ws) => {
     const data = JSON.parse(msg);
 
     switch (data.type) {
-      case "next_room":
-        if (id_a == null) {
-          id_a = data.id;
-
-        }else if (id_a != null) {
-          if (id_b == null) {
-            id_b = data.id;
-            room_bool = true;
-
-          }else {
-            id_a = null;
-            id_b = null;
-            room_bool = false;
-        
-          }
-        }
+      case "create_room":
+        room_list[room_list_number] = [data.id, null];
         ws.send(JSON.stringify({
           type: "next_room",
-          id: "Python"
+          id: room_list[0]
         }));
+        break;
     }
   });
 
