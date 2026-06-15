@@ -44,7 +44,11 @@ wss.on("connection", (ws) => {
         break;
 
       case "conect_room":
-        if (room_list[data.conect_room_number][0] !== null && room_list[data.conect_room_number][1] === null) {
+        if ( room_list[data.conect_room_number][0] === null) {
+          sendToId(data.id, {
+            type: "conect_error_room_null"
+          });
+        }else if( room_list[data.conect_room_number][1] === null) {
           room_list[data.conect_room_number][1] = data.id;
           sendToId(room_list[data.conect_room_number][0], {
             type: "match_conect"
