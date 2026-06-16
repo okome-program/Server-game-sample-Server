@@ -111,6 +111,15 @@ wss.on("connection", (ws) => {
           type: "you_lose"
         });
         break;
+
+      case "win_draw":
+        sendToId(room_list[data.room][0], {
+          type: "game_set_draw"
+        });
+        sendToId(room_list[data.room][1], {
+          type: "game_set_draw"
+        });
+        break;
     }
   });
 
