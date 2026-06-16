@@ -84,6 +84,24 @@ wss.on("connection", (ws) => {
           });
         }
         break;
+
+      case "game_replace":
+        switch (data.pnumber) {
+          case "1":
+            sendToId(room_list[data.room][1], {
+              type: "change_replace",
+              game_canvas: data.game_canvas
+            });
+            break;
+
+          case "2":
+            sendToId(room_list[data.room][0], {
+              type: "change_replace",
+              game_canvas: data.game_canvas
+            });
+            break;
+        }
+        break;
     }
   });
 
